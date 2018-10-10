@@ -120,6 +120,8 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
+
+
                     />
 
                 <EditText
@@ -130,6 +132,7 @@
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:hint="Confirm Password"
+
                     android:background="@drawable/editext"
                     android:inputType="textPassword"
                     android:padding="10dp"

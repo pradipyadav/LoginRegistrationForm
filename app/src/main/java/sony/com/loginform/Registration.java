@@ -1,5 +1,6 @@
 package sony.com.loginform;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -68,7 +70,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Registration.this, Login.class);
+                        Intent intent = new Intent(Registration.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
 
@@ -87,7 +89,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     public void onClick(View view) {
         if (view == bReg) {
 //            submitForm();
@@ -101,8 +102,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 //
             if (nam.equals("") || addr.equals("") || email.equals("") || phNo.equals("") || pass.equals("") || conpass.equals("")) {
 //            if (awesomeValidation.validate()) {
-            builder.setTitle("Somthing went wrong...");
-            builder.setMessage("Please fill all the fields...");
+                builder.setTitle("Somthing went wrong...");
+                builder.setMessage("Please fill all the fields...");
 
                 displayAlert("input_error");
 
@@ -116,12 +117,12 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     builder.setTitle("Somthing went Wrong....");
                     builder.setMessage("Your password are not matching...");
                     displayAlert("input_error");
-//                    Toast.makeText(this, "Registration Complited...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Registration Complited...", Toast.LENGTH_LONG).show();
                 } else {
 
-                    Toast.makeText(this, "Registration Successful...", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, "Registration Successful...", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(Registration.this, Login.class);
+                    Intent intent = new Intent(Registration.this, LoginActivity.class);
                     startActivity(intent);
 
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, reg_url, new Response.Listener<String>() {
@@ -161,7 +162,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             return params;
                         }
                     };
-
                     MySingleton.getmInstance(Registration.this).addReqQue(stringRequest);
 
                     //////
@@ -172,23 +172,21 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    public void displayAlert(final String code){
+
+    public void displayAlert(final String code) {
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if (code.equals("input_error")){
+                if (code.equals("input_error")) {
 
                     ePass.setText("");
                     econPass.setText("");
-                }
-
-                else if (code.equals("reg_success")){
+                } else if (code.equals("reg_success")) {
 
                     finish();
-                }
-                else if (code.equals("reg_faild")){
+                } else if (code.equals("reg_faild")) {
                     eNm.setText("");
                     eAdd.setText("");
                     eEmil.setText("");
@@ -200,7 +198,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        AlertDialog alertDialog=builder.create();
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
